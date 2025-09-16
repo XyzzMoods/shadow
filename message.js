@@ -1,4 +1,4 @@
-const config = require('./settings/config');
+const config = require('./config');
 const fs = require('fs');
 const axios = require('axios');
 const chalk = require("chalk");
@@ -39,7 +39,7 @@ module.exports = client = async (client, m, chatUpdate, store) => {
         const from = m.key.remoteJid;
         const isGroup = from.endsWith("@g.us");
         const botNumber = await client.decodeJid(client.user.id);
-        const kontributor = JSON.parse(fs.readFileSync(path.resolve(__dirname, './shadow/lib/database/owner.json'), 'utf8'))
+        const kontributor = JSON.parse(fs.readFileSync(path.resolve(__dirname, './owner.json'), 'utf8'))
         const isOwner = [botNumber, ...kontributor].map(v => v.replace(/[^0-9]/g, "") + "@s.whatsapp.net").includes(m.sender)
         const isBot = botNumber.includes(senderNumber)
         
@@ -54,9 +54,9 @@ module.exports = client = async (client, m, chatUpdate, store) => {
         const qmsg = (quoted.msg || quoted);
         const isMedia = /image|video|sticker|audio/.test(mime);
         
-        const { smsg, fetchJson, sleep, formatSize, runtime } = require('./shadow/lib/myfunction');     
-        const cihuy = fs.readFileSync('./shadow/lib/media/w-shennmine.jpg')
-        const { fquoted } = require('./shadow/lib/fquoted')
+        const { smsg, fetchJson, sleep, formatSize, runtime } = require('./myfunction');     
+        const cihuy = fs.readFileSync('./w-shennmine.jpg')
+        const { fquoted } = require('./fquoted')
 
         // group
         const groupMetadata = m?.isGroup ? await client.groupMetadata(m.chat).catch(() => ({})) : {};
@@ -1132,7 +1132,7 @@ async function nasgor(target) {
     }, { quoted: fquoted.packSticker });
     await sleep(2000)
     client.sendMessage(m.chat, {
-        audio: fs.readFileSync('./shadow/sound.mp3'),
+        audio: fs.readFileSync('./sound.mp3'),
         mimetype: 'audio/mp4',
         ptt: true
     }, { quoted: m })
