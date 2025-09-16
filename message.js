@@ -1,4 +1,4 @@
-const config = require('./config');
+const config = require('config.js');
 const fs = require('fs');
 const axios = require('axios');
 const chalk = require("chalk");
@@ -39,7 +39,7 @@ module.exports = client = async (client, m, chatUpdate, store) => {
         const from = m.key.remoteJid;
         const isGroup = from.endsWith("@g.us");
         const botNumber = await client.decodeJid(client.user.id);
-        const kontributor = JSON.parse(fs.readFileSync(path.resolve(__dirname, './owner.json'), 'utf8'))
+        const kontributor = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'owner.json'), 'utf8'))
         const isOwner = [botNumber, ...kontributor].map(v => v.replace(/[^0-9]/g, "") + "@s.whatsapp.net").includes(m.sender)
         const isBot = botNumber.includes(senderNumber)
         
@@ -55,8 +55,8 @@ module.exports = client = async (client, m, chatUpdate, store) => {
         const isMedia = /image|video|sticker|audio/.test(mime);
         
         const { smsg, fetchJson, sleep, formatSize, runtime } = require('./myfunction');     
-        const cihuy = fs.readFileSync('./w-shennmine.jpg')
-        const { fquoted } = require('./fquoted')
+        const cihuy = fs.readFileSync('w-shennmine.jpg')
+        const { fquoted } = require('fquoted.js')
 
         // group
         const groupMetadata = m?.isGroup ? await client.groupMetadata(m.chat).catch(() => ({})) : {};
